@@ -67,15 +67,15 @@ const leavingNow = () => {
 
 const driveRoute = pos => {
     // throw away geolocator-derived pos, use fake pos for demo
-    const bounds = 0.1; // distance in degrees
+    const randomSpreadExtent = 0.05; // distance in degrees
     pos = new google.maps.LatLng(
         chance.latitude({
-            min: store.lat() - bounds,
-            max: store.lat() + bounds,
+            min: store.lat() - randomSpreadExtent,
+            max: store.lat() + randomSpreadExtent,
         }),
         chance.longitude({
-            min: store.lng() - bounds,
-            max: store.lng() + bounds,
+            min: store.lng() - randomSpreadExtent,
+            max: store.lng() + randomSpreadExtent,
         })
     );
     var request = {
@@ -86,6 +86,13 @@ const driveRoute = pos => {
     directionsService.route(request, function (result, status) {
         spinnerEl.style.display = "none";
         if (status == "OK") {
+            const origin = `${pos.lat()},${pos.lng()}`;
+            console.log('origin', origin);
+            const destination = `${store.lat()},${store.lng()}`;
+            console.log('destination', destination);
+            const gmapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+            document.getElementById("get-directions-link").href = gmapsDirectionsUrl;
+
             directionsRenderer.setDirections(result);
             const coordPairs = polylinesToCoordPairs(result);
             playRoute(coordPairs);

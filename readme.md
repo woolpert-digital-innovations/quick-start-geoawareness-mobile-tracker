@@ -27,4 +27,7 @@ Configure config.json with proper key values.
 ```
 # copy static files
 gsutil cp index.html mobile-tracker.js config.json gs://mobile-tracker-sbx.geoawareness.woolpert.dev
+
+# remove default cache
+gsutil -m setmeta -r -h "Cache-Control:no-cache, max-age=0" gs://mobile-tracker-sbx.geoawareness.woolpert.dev/*
 ```
