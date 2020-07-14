@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <style>
+      #map {
+        height: 365px;
+      }
+    </style>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <div id="main-div" class="container">
+      <div class="section deep-orange-text text-darken-4 row">
+        <div class="col s9">
+          <h3>Incline Restaurants</h3>
+          <h5>Carmelit - Branson, MO</h5>
+        </div>
+        <div class="col s3 right-align">
+          <p id="login-name"></p>
+        </div>
+      </div>
+      <div id="order-card" class="section card-panel">
+        <div class="row">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Item Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hamburger</td>
+                <td>$8.99</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>French Fries M</td>
+                <td>$3.99</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Diet Coke L</td>
+                <td>$2.89</td>
+                <td>3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="right-align">
+          <p>Total $51.60</p>
+          <a
+            class="waves-effect waves-light btn deep-orange darken-4"
+            onclick="placeOrder()"
+            >Place order</a
+          >
+        </div>
+      </div>
+      <div id="spinner" class="center-align">
+        <p id="spinner-msg" class="row">Placing order.</p>
+        <div class="preloader-wrapper active row">
+          <div class="spinner-layer spinner-red-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="leaving-card" class="section card-panel">
+        <h5>Order confirmed</h5>
+        <p>
+          Your order has been received. To minimize your wait time at the store,
+          click <strong>Leaving now</strong> and we'll do our best to have your
+          order ready when you arrive.
+        </p>
+        <div class="right-align">
+          <a
+            class="waves-effect waves-light btn deep-orange darken-4"
+            onclick="leavingNow()"
+            >Leaving now</a
+          >
+        </div>
+      </div>
+      <div id="directions-card" class="section card-panel">
+        Thank you for sharing your location. Please keep this page open so we
+        can send updates on your location to our store.
+      </div>
+      <div id="map" class="section card-panel"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://chancejs.com/chance.min.js"></script>
+    <script src="mobile-tracker.js"></script>
+    <script>
+      let store, directionsService, directionsRenderer;
+
+      function initMap() {
+        store = new google.maps.LatLng(36.650717, -93.220024);
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+
+        const mapOptions = {
+          zoom: 13,
+          center: store,
+          streetViewControl: false,
+        };
+        const map = new google.maps.Map(
+          document.getElementById("map"),
+          mapOptions
+        );
+        directionsRenderer.setMap(map);
+      }
+    </script>
+  </body>
+</html>
