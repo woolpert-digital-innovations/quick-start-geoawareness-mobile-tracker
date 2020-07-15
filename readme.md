@@ -7,10 +7,10 @@ Geoawareness mobile tracker is a mobile website that emulates the customer exper
 gcloud config set project <project_id>
 
 # create bucket
-gsutil mb gs://mobile-tracker-sbx.geoawareness.woolpert.dev
+gsutil mb gs://mobile-tracker-<env>.geoawareness.woolpert.dev
 
 # set permissions
-gsutil iam ch allUsers:objectViewer gs://mobile-tracker-sbx.geoawareness.woolpert.dev
+gsutil iam ch allUsers:objectViewer gs://mobile-tracker-<env>.geoawareness.woolpert.dev
 ```
 
 Set up [Cloud Load balancing](https://cloud.google.com/storage/docs/hosting-static-website#lb-ssl) for https support.
@@ -18,16 +18,16 @@ Set up [Cloud Load balancing](https://cloud.google.com/storage/docs/hosting-stat
 Configure config.json with proper key values.
 
 ```
-{
-  "mobileTrackerKey": "YOUR_API_KEY",
-  "geoawarenessRestApi": "api-sbx.geoawareness.woolpert.dev"
-}
+cp config-<env>.json config.json
 ```
 
 ```
+# remove all files
+gsutil rm -r gs://mobile-tracker-<env>.geoawareness.woolpert.dev/*
+
 # copy static files
-gsutil cp index.html mobile-tracker.js config.json gs://mobile-tracker-sbx.geoawareness.woolpert.dev
+gsutil cp -r index.html config.json src assets favicon.ico gs://mobile-tracker-<env>.geoawareness.woolpert.dev
 
 # remove default cache
-gsutil -m setmeta -r -h "Cache-Control:no-cache, max-age=0" gs://mobile-tracker-sbx.geoawareness.woolpert.dev/*
+gsutil -m setmeta -r -h "Cache-Control:no-cache, max-age=0" gs://mobile-tracker-<env>.geoawareness.woolpert.dev/*
 ```
