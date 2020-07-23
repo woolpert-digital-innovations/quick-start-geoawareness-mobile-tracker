@@ -11,7 +11,7 @@ const addGMapsScript = () => {
     script.src =
         "https://maps.googleapis.com/maps/api/js?" +
         "libraries=geometry&" +
-        `key=${window.config.mobileTrackerKey}&` +
+        `key=${window.config.apiKey}&` +
         "callback=initMap";
     script.defer = true;
     script.async = true;
@@ -19,7 +19,7 @@ const addGMapsScript = () => {
 }
 
 let leavingCardEl, spinnerEl, orderCardEl, directionsCardEl, mapEl;
-const name = chance.first();
+let name;
 
 const initUI = () => {
     leavingCardEl = document.getElementById("leaving-card");
@@ -132,7 +132,7 @@ const playRoute = async coordPairs => {
             storeName: 'Carmelit'
         };
 
-        await postEvent(`https://${window.config.geoawarenessRestApi}/events?key=${window.config.mobileTrackerKey}`, evt).then(data => { });
+        await postEvent(`https://${window.config.geoawarenessRestApi}/events?key=${window.config.apiKey}`, evt).then(data => { });
 
         counter += skipVertices;
         if (counter === coordPairs.length) {
@@ -158,5 +158,6 @@ const postEvent = async (url = '', data = {}) => {
 getConfig().then(config => {
     window.config = config;
     addGMapsScript();
+    name = window.config.customerName || chance.first();
+    initUI();
 });
-initUI();
