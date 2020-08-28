@@ -18,7 +18,10 @@ Mobile Tracker is hosted in Google Cloud Storage as a static website.
 
 1. HTTPs support. Set up [Cloud Load balancing](https://cloud.google.com/storage/docs/hosting-static-website#lb-ssl) for https support.
 
-1. Configure. Edit `config.json` for your environment with proper values. The API key must have permissions for Google Maps Platform [Dynamic Maps](https://developers.google.com/maps/documentation/javascript/overview) and the GeoAwareness REST API.
+1. Configure. Edit `config.json` for your environment with proper values. The API key must have permissions for Google Maps Platform 
+   [JavaScript API](https://developers.google.com/maps/documentation/javascript/overview),
+   [Directions API](https://developers.google.com/maps/documentation/directions/overview),
+   and the GeoAwareness REST API.
 
 1. Deploy website to GCS bucket.
 
