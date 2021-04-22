@@ -11,6 +11,13 @@ GeoAwareness Mobile Tracker is a mobile website that emulates the customer exper
 
 1. Configure - Edit `config.json` for your environment with proper values.
 
+- "YOUR_API_KEY" - replace with the API key created from the previous step.
+- "GEOAWARENESS_REST_API_ENDPOINT" - replace with url of the geoawareness-api.
+
+```
+"geoawarenessRestApi": "https://api-sbx.geoawareness.woolpert.dev"
+```
+
 ## Running Locally
 
 ```
